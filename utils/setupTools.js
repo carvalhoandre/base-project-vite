@@ -6,6 +6,7 @@ process.env.NODE_OPTIONS = "--no-deprecation";
 
 function safeExec(command, description) {
   try {
+    console.log(`\n▶️ ${description}`);
     execSync(command, { stdio: "inherit" });
   } catch (error) {
     console.error(`\n❌ Erro ao executar: ${command}`);
@@ -96,13 +97,35 @@ module.exports = function setupTools(projectName) {
   }
 
   // 5. Atualiza o title no index.html
+  const hasProjectName = projectName !== "./";
   const indexHtmlPath = path.resolve("index.html");
-  if (fs.existsSync(indexHtmlPath) && projectName) {
+  if (fs.existsSync(indexHtmlPath) && hasProjectName) {
     const html = fs.readFileSync(indexHtmlPath, "utf-8");
     const updatedHtml = html.replace(
       /<title>.*<\/title>/,
       `<title>${projectName}</title>`
     );
     fs.writeFileSync(indexHtmlPath, updatedHtml);
+  }
+
+  // 6. Limpa arquivos do Vite
+  const appCssPath = path.resolve("src/App.css");
+  const indexCssPath = path.resolve("src/index.css");
+  const reactSvgPath = path.resolve("src/assets/react.svg");
+  const appTsxPath = path.resolve("src/App.tsx");
+
+  if (fs.existsSync(appCssPath)) fs.writeFileSync(appCssPath, "");
+  if (fs.existsSync(indexCssPath)) fs.writeFileSync(indexCssPath, "");
+  if (fs.existsSync(reactSvgPath)) fs.unlinkSync(reactSvgPath);
+
+  if (fs.existsSync(appTsxPath) && hasProjectName) {
+    fs.writeFileSync(
+      appTsxPath,
+      `
+        export const App = () => {
+          return <h1>${projectName}</h1>
+        }
+      `
+    );
   }
 };
