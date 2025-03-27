@@ -1,0 +1,24 @@
+{
+  "name": "base-project-vite",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/carvalhoandre/base-project-vite.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/carvalhoandre/base-project-vite/issues"
+  },
+  "homepage": "https://github.com/carvalhoandre/base-project-vite#readme",
+  "bin": {
+    "react-vite-clean-cli": "./bin/index.js"
+  }
+}
