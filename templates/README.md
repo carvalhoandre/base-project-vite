@@ -1,28 +1,32 @@
+# Projeto Frontend
 
-## Estrutura do projeto
+Projeto criado com Vite + React.
 
-- \`src/\`: código-fonte principal
-- \`public/\`: arquivos estáticos
+## Scripts
 
-## Padrões de branches
+- `npm run dev`: inicia ambiente de desenvolvimento
+- `npm run build`: gera build de producao
+- `npm run preview`: executa preview da build
+- `npm run lint`: valida padrao de codigo
+- `npm run format`: formata arquivos com Prettier
 
-- \`main\`: produção
-- \`develop\`: homologação
-- \`feature/*\`: novas features
-- \`bugfix/*\`, \`hotfix/*\`: correções
+## Estrutura
 
-## Padrão de commits
+- `src/`: codigo-fonte principal
+- `public/`: arquivos estaticos
 
-- \`feat:\`: nova funcionalidade
-- \`fix:\`: correção de bug
-- \`chore:\`: manutenção
-- \`docs:\`: documentação
-- \`refactor:\`: refatoração
-- \`style:\`: formatação
-- \`test:\`: testes
+## Convencao de commits
 
-## Scripts úteis
+- `feat:` nova funcionalidade
+- `fix:` correcao de bug
+- `docs:` documentacao
+- `refactor:` refatoracao sem mudanca funcional
+- `test:` testes
+- `chore:` tarefas de manutencao
 
-- \`npm run lint\`
-- \`npm run format\`
-`
+## Fluxo de branches
+
+- `main`: producao
+- `develop`: integracao
+- `feature/*`: novas funcionalidades
+- `bugfix/*` e `hotfix/*`: correcoes

@@ -1,124 +1,90 @@
-# 🧱 Base Project Vite + React + TS
+# create-base-vite
 
-<p align="center">
-  <img src="https://img.shields.io/badge/vite-%23646CFF.svg?style=for-the-badge&logo=vite&logoColor=white" alt="Vite" />
-  <img src="https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB" alt="React" />
-  <img src="https://img.shields.io/badge/typescript-%23007ACC.svg?style=for-the-badge&logo=typescript&logoColor=white" alt="TypeScript" />
-</p>
+CLI para criar projetos React com Vite e aplicar uma base opinativa de qualidade de codigo.
 
-<p align="center">
-  <a href="https://github.com/carvalhoandre/base-project-vite" target="_blank">
-    📁 Repositório no GitHub
-  </a>
-</p>
+## O que a CLI faz
 
-O **Base Project Vite** é um template completo para iniciar projetos com Vite + React + TypeScript, já configurado com as melhores práticas de lint, formatação, Git hooks e estrutura de pastas para escalar seu projeto com qualidade.
+- Cria projeto com template React (TypeScript por padrao)
+- Instala e configura ESLint, Prettier, Husky e lint-staged
+- Copia arquivos-base de configuracao a partir de `templates/`
+- Permite habilitar opcionalmente:
+  - React Router
+  - Zustand
+  - Tailwind CSS v4
 
----
-
-## 🚀 Funcionalidades
-
-- ✅ Vite + React + TypeScript prontos para uso
-- ✅ ESLint + Prettier + EditorConfig configurados
-- ✅ Husky + Lint-Staged para validação em pre-commit
-- ✅ Estrutura de pastas organizada
-- ✅ Opções adicionais via CLI: Tailwind, React Router, Zustand
-- ✅ Geração automática de README, .env.example, pull request template e mais
-
----
-
-## 🧰 Tecnologias Utilizadas
-
-- ⚡ [Vite](https://vitejs.dev/) — build ultra-rápido
-- ⚛️ [React](https://reactjs.org/) — biblioteca para construção de interfaces
-- 🔷 [TypeScript](https://www.typescriptlang.org/) — tipagem estática moderna
-- 🎨 [TailwindCSS](https://tailwindcss.com/) — (opcional) CSS utilitário
-- 🌐 [React Router](https://reactrouter.com/) — (opcional) roteamento
-- 🧠 [Zustand](https://zustand-demo.pmnd.rs/) — (opcional) gerenciamento de estado
-
----
-
-## 📂 Estrutura Inicial
-
-```bash
-📦 my-app/
-├── 📂 src/
-│   ├── App.tsx
-│   ├── main.tsx
-│   └── index.css
-├── 📂 .husky/
-│   └── pre-commit
-├── .eslintrc.json
-├── .prettierrc
-├── .editorconfig
-├── .env.example
-├── .gitignore
-├── README.md
-├── vite.config.ts
-└── package.json
-```
-
----
-
-## ⚙️ Como Usar
-
-Instale via CLI personalizada (exemplo com opções):
+## Uso rapido
 
 ```bash
 npx create-base-vite my-app --router --zustand --tailwind
 ```
 
-Acesse a pasta e rode:
+Compatibilidade com o nome antigo do binario:
 
 ```bash
-cd my-app
+npx react-vite-clean-cli my-app --router --zustand --tailwind
+```
+
+## Opcoes
+
+- `--router`: instala e configura React Router no bootstrap
+- `--zustand`: instala Zustand e cria uma store de exemplo
+- `--tailwind`: instala e configura Tailwind CSS v4
+- `--no-ts`: cria projeto em JavaScript (template `react`)
+- `-h`, `--help`: mostra ajuda
+
+## Exemplos
+
+Criar projeto TypeScript com tudo:
+
+```bash
+npx create-base-vite claravia --router --zustand --tailwind
+```
+
+Criar projeto JavaScript simples:
+
+```bash
+npx create-base-vite web-js --no-ts
+```
+
+## Desenvolvimento local
+
+```bash
 npm install
-npm run dev
+npm link
+create-base-vite teste-local --router
 ```
 
----
+## Publicacao no npm
 
-## 📏 Padrões de Código
-
-- **Lint:** `eslint` com Airbnb + TypeScript
-- **Formatador:** `prettier`
-- **Pre-commit:** `husky` + `lint-staged`
+Se voce quiser publicar com o novo nome de pacote:
 
 ```bash
-npm run lint       # checa problemas
-npm run format     # aplica Prettier
+npm login
+npm publish --access public
 ```
 
----
-
-## 🤝 Contribuições
-
-Sinta-se à vontade para abrir issues, forks e Pull Requests!
+Se o nome `create-base-vite` ja estiver em uso no npm, publique com escopo:
 
 ```bash
-git clone https://github.com/carvalhoandre/base-project-vite.git
-cd base-project-vite
-npm install
+npm pkg set name=@SEU_USUARIO/create-base-vite
+npm publish --access public
 ```
 
-Crie sua branch de feature:
+Depois, o uso fica:
+
 ```bash
-git checkout -b feat/nome-da-sua-feature
+npx @SEU_USUARIO/create-base-vite my-app
 ```
 
-Faça commit com padrão:
-```bash
-git commit -m "feat: minha contribuição"
-```
+## Troubleshooting
 
-E envie:
-```bash
-git push origin feat/nome-da-sua-feature
-```
+Erro `E404 create-base-vite` significa que o pacote ainda nao foi publicado com esse nome.
 
----
+Alternativas:
 
-Feito com 💙 por [André Leite Carvalho](https://andreleitecarvalho.space/)
+1. Use o binario legado publicado hoje: `npx react-vite-clean-cli ...`
+2. Publique este projeto com o nome novo (ou escopado) e use `npx` novamente
 
-> Esse projeto foi criado com foco em agilidade, escalabilidade e qualidade de código para desenvolvedores React.
+## Licenca
 
+MIT

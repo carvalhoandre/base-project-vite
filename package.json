@@ -1,17 +1,23 @@
 {
-  "name": "react-vite-clean-cli",
-  "version": "1.0.2",
-  "description": "",
+  "name": "create-base-vite",
+  "version": "1.0.3",
+  "description": "CLI para gerar projetos React com Vite, com setup opcional de Router, Zustand e Tailwind.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "pack": "npm pack --dry-run"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/carvalhoandre/base-project-vite.git"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": [
+    "vite",
+    "react",
+    "typescript",
+    "starter",
+    "cli"
+  ],
+  "author": "Andre Leite Carvalho",
   "license": "ISC",
   "type": "commonjs",
   "bugs": {
@@ -19,6 +25,10 @@
   },
   "homepage": "https://github.com/carvalhoandre/base-project-vite#readme",
   "bin": {
+    "create-base-vite": "./bin/index.js",
     "react-vite-clean-cli": "./bin/index.js"
+  },
+  "engines": {
+    "node": ">=20"
   }
 }
