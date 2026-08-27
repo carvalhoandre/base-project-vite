@@ -1,6 +1,6 @@
 {
   "name": "create-base-vite",
-  "version": "1.0.3",
+  "version": "2.0.0",
   "description": "CLI para criar aplicações React + Vite limpas, modernas e configuráveis.",
   "scripts": {
     "lint": "eslint . --max-warnings 0",
