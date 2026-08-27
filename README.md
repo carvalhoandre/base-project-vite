@@ -1,90 +1,123 @@
 # create-base-vite
 
-CLI para criar projetos React com Vite e aplicar uma base opinativa de qualidade de codigo.
+CLI para criar uma aplicação React + Vite limpa, acessível e pronta para crescer por features. TypeScript é o padrão; Router, Zustand, Tailwind, Lighthouse, Playwright e Git são opt-in.
 
-## O que a CLI faz
+## Pré-requisitos
 
-- Cria projeto com template React (TypeScript por padrao)
-- Instala e configura ESLint, Prettier, Husky e lint-staged
-- Copia arquivos-base de configuracao a partir de `templates/`
-- Permite habilitar opcionalmente:
-  - React Router
-  - Zustand
-  - Tailwind CSS v4
+- Node.js `^20.19.0 || >=22.12.0`, a faixa exigida pelo Vite 8
+- npm compatível com a versão do Node
 
-## Uso rapido
+## Uso
 
 ```bash
-npx create-base-vite my-app --router --zustand --tailwind
+npx --yes create-base-vite minha-app
 ```
 
-Compatibilidade com o nome antigo do binario:
+| Opção             | Comportamento                                             |
+| ----------------- | --------------------------------------------------------- |
+| `<project-name>`  | Diretório obrigatório, validado antes de qualquer escrita |
+| `--router`        | React Router 8 em Data Mode, usando `react-router`        |
+| `--zustand`       | Store e componente mínimos em `features/counter`          |
+| `--tailwind`      | Tailwind CSS com o plugin oficial do Vite                 |
+| `--lighthouse`    | Lighthouse CI sobre `dist`, sem upload público            |
+| `--playwright`    | Playwright/Chromium e smoke E2E da build                  |
+| `--git`           | Git em `main`, Husky e lint-staged                        |
+| `--full`          | Habilita todas as seis opções anteriores                  |
+| `--no-ts`         | Gera JavaScript; também funciona com `--full`             |
+| `-h`, `--help`    | Exibe ajuda e exemplos                                    |
+| `-v`, `--version` | Exibe a versão da CLI                                     |
 
 ```bash
-npx react-vite-clean-cli my-app --router --zustand --tailwind
+# TypeScript mínimo
+npx --yes create-base-vite minha-app
+
+# Combinação parcial sem Git
+npx --yes create-base-vite minha-app --router --playwright
+
+# Configuração completa em TypeScript
+npx --yes create-base-vite minha-app --full
+
+# Configuração completa em JavaScript
+npx --yes create-base-vite minha-app --full --no-ts
 ```
 
-## Opcoes
+`--full` não altera a linguagem: TypeScript continua padrão e `--no-ts` continua sendo a escolha explícita por JavaScript.
 
-- `--router`: instala e configura React Router no bootstrap
-- `--zustand`: instala Zustand e cria uma store de exemplo
-- `--tailwind`: instala e configura Tailwind CSS v4
-- `--no-ts`: cria projeto em JavaScript (template `react`)
-- `-h`, `--help`: mostra ajuda
+## Matriz de ferramentas
 
-## Exemplos
+| Ferramenta                                                | Mínimo | Flag           |
+| --------------------------------------------------------- | :----: | -------------- |
+| React + Vite                                              |   ✓    | —              |
+| ESLint Flat Config, React Hooks, React Refresh e JSX a11y |   ✓    | —              |
+| Prettier e EditorConfig                                   |   ✓    | —              |
+| React Router 8                                            |        | `--router`     |
+| Zustand                                                   |        | `--zustand`    |
+| Tailwind CSS                                              |        | `--tailwind`   |
+| Lighthouse CI                                             |        | `--lighthouse` |
+| Playwright                                                |        | `--playwright` |
+| Git, Husky e lint-staged                                  |        | `--git`        |
 
-Criar projeto TypeScript com tudo:
+Para aplicações novas, a CLI segue a orientação atual do React Router 8 e importa `createBrowserRouter`, `RouterProvider` e `Link` de `react-router`. O pacote legado `react-router-dom` não é instalado.
 
-```bash
-npx create-base-vite claravia --router --zustand --tailwind
+## Estrutura gerada
+
+```text
+src/
+  app/          # bootstrap, App e router opcional
+  components/   # componentes reutilizáveis
+  features/     # regras e UI por funcionalidade
+  hooks/        # hooks compartilhados
+  lib/          # adapters e utilitários
+  pages/        # composição de páginas e rotas
+  services/     # APIs e serviços externos
+  styles/       # reset e estilos globais
+  types/        # tipos realmente compartilhados
+tests/e2e/      # somente com --playwright
 ```
 
-Criar projeto JavaScript simples:
+O scaffold remove logos, assets, contador e CSS demonstrativo do Vite. O README de cada projeto é dinâmico e só documenta as opções presentes.
 
-```bash
-npx create-base-vite web-js --no-ts
-```
+## Scripts gerados
 
-## Desenvolvimento local
+Todos os projetos recebem `dev`, `build`, `preview`, `lint`, `lint:fix`, `format`, `format:check` e `check`. TypeScript acrescenta `typecheck`.
 
-```bash
-npm install
-npm link
-create-base-vite teste-local --router
-```
+- `--playwright`: `test:e2e`, `test:e2e:ui`, `test:e2e:headed`, `test:e2e:report`
+- `--lighthouse`: `lighthouse`, `lighthouse:collect`, `lighthouse:audit`, `lighthouse:healthcheck`
+- `--git`: `prepare` e pre-commit com lint-staged
 
-## Publicacao no npm
+Após gerar com Playwright, execute `npx playwright install chromium`. A instalação de browsers não ocorre em `postinstall`.
 
-Se voce quiser publicar com o novo nome de pacote:
+## Lighthouse
 
-```bash
-npm login
-npm publish --access public
-```
-
-Se o nome `create-base-vite` ja estiver em uso no npm, publique com escopo:
-
-```bash
-npm pkg set name=@SEU_USUARIO/create-base-vite
-npm publish --access public
-```
-
-Depois, o uso fica:
-
-```bash
-npx @SEU_USUARIO/create-base-vite my-app
-```
+A configuração audita a build de produção três vezes. Performance gera aviso abaixo de 0,85; acessibilidade, boas práticas e SEO falham abaixo de 0,90. Os resultados ficam em `.lighthouseci/`, ignorado pelo Git, e podem ser ajustados em `.lighthouserc.cjs` conforme o produto amadurecer.
 
 ## Troubleshooting
 
-Erro `E404 create-base-vite` significa que o pacote ainda nao foi publicado com esse nome.
+- Nome ausente, inválido ou opção desconhecida: consulte `npx create-base-vite --help`.
+- Diretório existente: escolha outro nome ou remova-o conscientemente antes de gerar.
+- Playwright sem browser: execute `npx playwright install chromium` no projeto.
+- Falha de engine: atualize o Node para uma versão coberta por `^20.19.0 || >=22.12.0`.
+- Git não é desejado: omita `--git`; lint, formatação e build continuam disponíveis.
 
-Alternativas:
+## Desenvolvimento
 
-1. Use o binario legado publicado hoje: `npx react-vite-clean-cli ...`
-2. Publique este projeto com o nome novo (ou escopado) e use `npx` novamente
+```bash
+npm ci
+npm run check
+npm run test:smoke
+npm pack --dry-run
+```
 
-## Licenca
+Os testes unitários não acessam rede. `test:smoke` cria a matriz real em um diretório temporário, executa lint, format check, typecheck/build e valida configurações opcionais. `test:release` instala Chromium e executa Playwright e Lighthouse reais em um projeto completo.
 
-MIT
+Consulte [Arquitetura](docs/ARCHITECTURE.md) e [Processo de release](docs/RELEASING.md).
+
+## Publicação e pacote legado
+
+O pacote mantido é `create-base-vite`. O alias local de binário `react-vite-clean-cli` permanece por compatibilidade ao instalar este pacote, mas o pacote npm separado `react-vite-clean-cli@1.0.2` não recebe esta versão e não deve ser apresentado como equivalente atualizado.
+
+Releases seguem os gates documentados, incluindo CI verde, inspeção do tarball, autenticação npm e smoke do pacote publicado.
+
+## Licença
+
+[MIT](LICENSE)

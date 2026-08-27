@@ -1,10 +1,18 @@
 {
   "name": "create-base-vite",
   "version": "1.0.3",
-  "description": "CLI para gerar projetos React com Vite, com setup opcional de Router, Zustand e Tailwind.",
-  "main": "index.js",
+  "description": "CLI para criar aplicações React + Vite limpas, modernas e configuráveis.",
   "scripts": {
-    "pack": "npm pack --dry-run"
+    "lint": "eslint . --max-warnings 0",
+    "lint:fix": "eslint . --fix",
+    "format": "prettier . --write",
+    "format:check": "prettier . --check",
+    "test": "node --test",
+    "test:smoke": "node tests/smoke/run.js",
+    "test:release": "node tests/release/run.js",
+    "check": "npm run lint && npm run format:check && npm test",
+    "pack": "npm pack --dry-run",
+    "prepublishOnly": "npm run check && npm run test:smoke && npm pack --dry-run"
   },
   "repository": {
     "type": "git",
@@ -15,20 +23,38 @@
     "react",
     "typescript",
     "starter",
-    "cli"
+    "cli",
+    "playwright",
+    "lighthouse",
+    "tailwindcss"
   ],
   "author": "Andre Leite Carvalho",
-  "license": "ISC",
+  "license": "MIT",
   "type": "commonjs",
   "bugs": {
     "url": "https://github.com/carvalhoandre/base-project-vite/issues"
   },
   "homepage": "https://github.com/carvalhoandre/base-project-vite#readme",
   "bin": {
-    "create-base-vite": "./bin/index.js",
-    "react-vite-clean-cli": "./bin/index.js"
+    "create-base-vite": "bin/index.js",
+    "react-vite-clean-cli": "bin/index.js"
   },
   "engines": {
-    "node": ">=20"
+    "node": "^20.19.0 || >=22.12.0"
+  },
+  "files": [
+    "bin/",
+    "src/",
+    "docs/",
+    "CHANGELOG.md",
+    "LICENSE",
+    "README.md"
+  ],
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "eslint": "^10.9.1",
+    "eslint-config-prettier": "^10.1.8",
+    "globals": "^17.11.0",
+    "prettier": "^3.9.6"
   }
 }
