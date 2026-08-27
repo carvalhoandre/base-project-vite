@@ -4,6 +4,8 @@ Todas as mudanças relevantes deste projeto serão documentadas aqui. O formato 
 
 ## [Unreleased]
 
+## [2.0.0] - 2026-08-27
+
 ### Added
 
 - Flags `--lighthouse`, `--playwright`, `--git`, `--full` e `--version`.
@@ -33,5 +35,6 @@ Todas as mudanças relevantes deste projeto serão documentadas aqui. O formato 
 
 - Versão inicial publicada de `create-base-vite`.
 
-[Unreleased]: https://github.com/carvalhoandre/base-project-vite/compare/v1.0.3...HEAD
+[Unreleased]: https://github.com/carvalhoandre/base-project-vite/compare/v2.0.0...HEAD
+[2.0.0]: https://github.com/carvalhoandre/base-project-vite/compare/v1.0.3...v2.0.0
 [1.0.3]: https://github.com/carvalhoandre/base-project-vite/releases/tag/v1.0.3
